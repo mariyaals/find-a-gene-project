@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Find-a-Gene Project</title>
+<style>
+  body {
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: #333;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  h1.title {
+    font-size: 2em;
+    margin-bottom: 0.1em;
+  }
+  .author, .date {
+    color: #666;
+    font-size: 1em;
+    margin: 0.1em 0;
+  }
+  h2 {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 6px;
+    margin-top: 2.2em;
+    color: #1a1a1a;
+  }
+  h3 {
+    margin-top: 1.6em;
+    color: #1a1a1a;
+  }
+  code, pre {
+    font-family: "Courier New", Courier, monospace;
+  }
+  pre {
+    background-color: #f6f6f6;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    padding: 12px 16px;
+    overflow-x: auto;
+    font-size: 0.88em;
+    line-height: 1.45;
+  }
+  code {
+    background-color: #f6f6f6;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+  .field-list {
+    background-color: #fafafa;
+    border-left: 3px solid #ccc;
+    padding: 10px 16px;
+    margin: 1em 0;
+  }
+  .field-list p {
+    margin: 4px 0;
+  }
+  figure {
+    margin: 1.6em 0;
+    text-align: center;
+  }
+  figure img {
+    max-width: 100%;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+  }
+  figcaption {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 8px;
+  }
+  .qtag {
+    color: #c0392b;
+    font-weight: bold;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 2.5em 0;
+  }
+  .stats-block {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.9em;
+    background-color: #f6f6f6;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    padding: 10px 16px;
+    display: inline-block;
+  }
+  table {
+    border-collapse: collapse;
+    margin: 1em 0;
+    width: 100%;
+  }
+  table th, table td {
+    border: 1px solid #ddd;
+    padding: 6px 10px;
+    text-align: left;
+    font-size: 0.92em;
+  }
+  table th {
+    background-color: #f6f6f6;
+  }
+</style>
+</head>
+<body>
+
+<h1 class="title">BIMM 143: Find-a-Gene Project</h1>
+<p class="author">Mariya Alsaiari (A18470707)</p>
+<p class="date">malsaiari@ucsd.edu</p>
+
+<hr>
+
+<h2>[Q1] Protein of Interest</h2>
+<div class="field-list">
+<p><strong>Name:</strong> Retinol-binding protein 4 (RBP4)</p>
+<p><strong>Species:</strong> <em>Homo sapiens</em> (human)</p>
+<p><strong>Accession number:</strong> NP_001310446.1</p>
+<p><strong>Function:</strong> RBP4 is a lipocalin family protein that acts as the primary transporter of retinol (vitamin A) through the bloodstream. It mobilizes retinol from hepatic stores and circulates it to target tissues throughout the body. To avoid renal loss, the RBP4-retinol complex binds transthyretin in plasma, forming a larger complex that is too big to be filtered out by the kidneys.</p>
+</div>
+
+<h2><span class="qtag">[Q2]</span> BLAST Search Against a DNA Database</h2>
+<div class="field-list">
+<p><strong>BLAST Method:</strong> tblastn was used, which takes a protein query sequence and searches it against a nucleotide database by translating the database in all six reading frames. This allows identification of homologous protein-coding regions within unannotated genomic DNA.</p>
+<p><strong>Database Searched:</strong> Nucleotide collection (core_nt)</p>
+<p><strong>Limits Applied:</strong> Search restricted to Chondrichthyes (taxid:7777); Models (XM/XP) excluded.</p>
+</div>
+
+<figure>
+<img src="images/q2_blast_table.png" alt="tblastn results table">
+<figcaption>tblastn search results restricted to Chondrichthyes, showing top hits by E-value.</figcaption>
+</figure>
+
+<p><strong>Match Selection:</strong> The selected match is the <em>Cetorhinus maximus</em> (basking shark) genome assembly, chromosome 20 (Accession: OZ077466.1), with 3 high-scoring pairs (HSPs) across the genomic sequence.</p>
+
+<p>This hit was selected because it is a raw genomic sequence with no functional annotation in the description title, meeting the assignment criteria. The alignment statistics indicate clear homology to the query RBP4 protein without representing a perfect or previously annotated match, suggesting this is a novel unannotated homolog in the basking shark genome.</p>
+
+<figure>
+<img src="images/q2_alignment_detail.png" alt="Pairwise alignment detail for the three HSPs">
+<figcaption>Pairwise alignment detail for the three high-scoring pairs against <em>Cetorhinus maximus</em> chromosome 20.</figcaption>
+</figure>
+
+<p><strong>Alignment Statistics (Range 1, highest-scoring HSP):</strong></p>
+<div class="stats-block">
+E-value: 5e-25<br>
+Score: 109 bits<br>
+Identities: 60% (50/83)<br>
+Positives: 74% (62/83)<br>
+Gaps: 0%
+</div>
+
+<h2><span class="qtag">[Q3]</span> The "Novel" Protein</h2>
+<div class="field-list">
+<p><strong>Novel Protein Name:</strong> RBP4 homolog</p>
+<p><strong>Species:</strong> <em>Cetorhinus maximus</em> (basking shark)</p>
+</div>
+
+<p>The protein sequence below was obtained by extracting and ordering the subject lines from the three high-scoring pairs (HSPs) found in the tblastn alignment against chromosome 20 of the basking shark genome (Accession: OZ077466.1):</p>
+
+<pre>&gt;Novel_RBP4_Homolog_Cetorhinus_maximus
+QYVGKWHAFAKKDPMGIFLESNIHAEFKAENETMTAKATGLVTLL
+SEWIVCAEMLGTFNNTEHPAKFKLKYWGAAEHLQQGSE
+SDDDHWIIDTDYDNYAITYTCRKLNDNGTCADSYSFVFSRSPKGLT
+SEAQRIVRKWQDHLCLAYKYRRVAQTGKCNRILESSL</pre>
+
+<p>This sequence was assembled by stitching together the Sbjct lines from each HSP in order of their genomic position (Range 3 → Range 2 → Range 1). The sequence does not begin with a methionine, which is expected given that only a partial coding region was captured in the genomic alignment.</p>
+
+<h2><span class="qtag">[Q4]</span> Proving the Gene Is Novel</h2>
+
+<p><strong>Method:</strong> A blastp search was performed using the novel protein sequence from Q3 as the query against the non-redundant (nr) protein database at NCBI, with no organism restrictions applied.</p>
+
+<figure>
+<img src="images/q4_blastp_nr.png" alt="blastp search results against the nr database">
+<figcaption>blastp search of the novel sequence against the NCBI nr database.</figcaption>
+</figure>
+
+<p><strong>Results:</strong> The top hit is retinol-binding protein 4 isoform X1 from <em>Cetorhinus maximus</em> (Accession: XP_078422138.1) with 95.73% identity and an E-value of 5e-114.</p>
+
+<ul>
+<li>If there is a match with 100% amino acid identity to a protein in the database, from the same species, then your protein is NOT novel. → There is no 100% identity match to any protein from <em>Cetorhinus maximus</em> in the database, so this does not apply.</li>
+<li>If the top match reported has less than 100% identity, then it is likely that your protein is novel, and you have succeeded. → The top match has 95.73% identity, which is less than 100%. This confirms the protein is novel.</li>
+<li>If there is a match with 100% identity, but to a different species than the one you started with, then you have likely succeeded in finding a novel gene. → There is no 100% identity match to any species in the database, so this does not apply.</li>
+<li>If there are no database matches to the original query from Q1, this indicates that you have partially succeeded. → There are strong matches to RBP4 across multiple shark species, confirming the novel sequence is genuinely homologous to the original human RBP4 query. Starting over is not necessary.</li>
+</ul>
+
+<p><strong>Conclusion:</strong> This protein is novel. The highest identity match is 95.73%, meaning this exact sequence has not been previously annotated in the database for <em>Cetorhinus maximus</em>. The strong similarity to RBP4 in related shark species confirms it is a genuine RBP4 homolog in the basking shark genome.</p>
+
+<h2><span class="qtag">[Q5]</span> Multiple Sequence Alignment</h2>
+
+<p>A multiple sequence alignment was generated using <a href="https://www.ebi.ac.uk/Tools/msa/clustalo/" target="_blank">Clustal Omega</a> with 7 RBP4 protein sequences from diverse species, including the novel basking shark sequence from Q3. Sequences were labeled by common species name rather than accession number to aid interpretation.</p>
+
+<p><strong>Species included:</strong></p>
+<table>
+<tr><th>Species</th><th>Accession</th></tr>
+<tr><td><em>Homo sapiens</em> (human)</td><td>NP_001310446.1</td></tr>
+<tr><td><em>Mus musculus</em> (mouse)</td><td>AAH31809.1</td></tr>
+<tr><td><em>Sus scrofa</em> (pig)</td><td>NP_999222.1</td></tr>
+<tr><td><em>Danio rerio</em> (zebrafish)</td><td>NP_570995.1</td></tr>
+<tr><td><em>Cygnus columbianus</em> (tundra swan)</td><td>XP_082668518.1</td></tr>
+<tr><td><em>Carcharodon carcharias</em> (great white shark)</td><td>XP_041066390.1</td></tr>
+<tr><td><em>Cetorhinus maximus</em> (basking shark)</td><td>novel sequence from Q3</td></tr>
+</table>
+
+<pre>CLUSTAL O(1.2.4) multiple sequence alignment
+
+GreatWhiteShark   MV--QCKILGLLVVVLFSTSSCFAKSDCIVSNFQVKEDFNKTRYAGKWHAFAKKDPVGIF   58
+BaskingShark      ------------------------------------------QYVGKWHAFAKKDPMGIF  18
+Zebrafish         ---------MLRLCIAVCVLATCWAQDCQVSNFAVQQDFNRTRYQGTWYAVAKKDPVGLF  51
+TundraSwan        MAYTRKALPCLLLLALTFLGSSMAERDCRVSSFKVKENFDKNRYSGTWYATAKKDPEGLF  60
+Mouse             ------MEWVWALVLLAALG-GSAERDCRVSSFRVKENFDKARFSGLWYAIAKKDPEGLF  53
+Human             ------MKWVWALLLLAALGSGRAERDCRVSSFRVKENFDKARFSGTWYAMAKKDPEGLF  54
+Pig               ------MEWVWALVLLAALGA-QAERDCRVSSFRVKENFDKARFSGTWYAMAKKDPEGLF  53
+                                                    ::   *  :*  ***** *:*
+
+GreatWhiteShark   LESNIHAEFKAEN--ETMTAKATGLVTL-LPEWIVCAEMMGTFNNTEHPAKFKLKYWGAA 115
+BaskingShark      LESNIHAEFKAEN--ETMTAKATGLVTL-LSEWIVCAEMLGTFNNTEHPAKFKLKYWGAA  75
+Zebrafish         LLDNIVANFKVE-EDGTMTATAIGRVII-LNNWEMCANMFGTFEDTEDPAKFKMKYWGAA 109
+TundraSwan        LQDNVVAQFTVD-ENGQMSATAKGRVRLFLNNWDVCADMIGSFTDTEDPAKFKMKYWGVA 119
+Mouse             LQDNIIAEFSVEDEKGHMSATAKGRVRLLLSNWEVCADMVGTFTDTEDPAKFKMKYWGVA 113
+Human             LQDNIVAEFSVD-ETGQMSATAKGRVRL-INNWDVCADMVGTFTDTEDPAKFKMKYWGVA 112
+Pig               LQDNIVAEFSVD-ENGHMSATAKGRVRLLLNNWDVCADMVGTFTDTEDPAKFKMKYWGVA 112
+                  * .*: *:*..: *:*.* *  *   :  :* :**:*.*:* :**.*****:****.*
+
+GreatWhiteShark   EHLQQGN---DDHWIIDTDYDNYAITYTCRKLNDNGTCADSYSFVFSRDPKGLTSEAQRI 172
+BaskingShark      EHLQQGSESDDDHWIIDTDYDNYAITYTCRKLNDNGTCADSYSFVFSRSPKGLTSEAQRI 135
+Zebrafish         AYLQTGY---DDHWIIDTDYDNYAIHYSCRELDEDGTCLDGYSFIFSRHPDGLRPEDQAI 166
+TundraSwan        SFLQKGN---DDHWVVDTDYDTYALHYSCRQLNEDGTCADSYSFVFSRDPKGLPPEAQKI 176
+Mouse             SFLQRGN---DDHWIIDTDYDTFALQYSCRLQNLDGTCADSYSFVFSRDPNGLSPETRRL 170
+Human             SFLQKGN---DDHWIVDTDYDTYAVQYSCRLLNLDGTCADSYSFVFSRDPNGLPPEAQKI 169
+Pig               SFLQKGN---DDHWIIDTDYDTYAAQYSCRLQNLDGTCADSYSFVFARDPHGFSPEVQKI 169
+                   .** *    ****::*****.:* *:** : :*** *.***:*:* *.*: * : :
+
+GreatWhiteShark   VRKWQDHLCLAYKYRRVAQ-TGACP--------  196
+BaskingShark      VRKWQDHLCLAYKYRRVAQ-TGKCNRILESSL-  166
+Zebrafish         VTQKKQDICFLGKYRRVAHTTGFCEAA------  193
+TundraSwan        VRQRQIDLCLDRKYRVIVH-NGFCS--------  200
+Mouse             VRQRQEELCLERQYRWIEH-NGYCQSRPSRNSL  202
+Human             VRQRQEELCLARQYRLIVH-NGYCDGRSERNLL  201
+Pig               VRQRQEELCLARQYRLITH-NGYCGK-SERNLL  200
+                  * :  :  .:*: :** :  :  .*  *</pre>
+
+<p>The alignment reveals conserved regions across all seven species, particularly in the core lipocalin domain, consistent with the shared retinol-binding function of RBP4. The basking shark novel sequence aligns well with the great white shark sequence, as expected given their close evolutionary relationship, while the zebrafish sequence shows the greatest divergence among the non-mammalian vertebrates.</p>
+
+<hr>
+
+<h2><span class="qtag">[Q6]</span> Phylogenetic Tree</h2>
+
+<p>A phylogenetic tree was generated from the multiple sequence alignment using Simple Phylogeny (EBI).</p>
+
+<figure>
+<img src="images/q6_tree.png" alt="Cladogram of RBP4 sequences across seven species">
+<figcaption>Cladogram showing evolutionary relationships between the seven RBP4 sequences, with branch lengths indicating divergence.</figcaption>
+</figure>
+
+<h2><span class="qtag">[Q7]</span> Sequence Identity Heatmap</h2>
+
+<p>The FASTA-format alignment was read into R using the Bio3D package, a sequence identity matrix was calculated, and a heatmap was generated.</p>
+
+<figure>
+<img src="images/q7_heatmap.png" alt="Sequence identity heatmap for RBP4 across species">
+<figcaption>Sequence identity heatmap with hierarchical clustering, generated in R using Bio3D.</figcaption>
+</figure>
+
+<h2><span class="qtag">[Q8]</span> Search for Similar Structures in the PDB</h2>
+
+<p>A BLAST search against the PDB was performed using the <code>blast.pdb()</code> function in R/Bio3D, with the human RBP4 sequence used as the query, as it has the highest identity to all other sequences in the alignment.</p>
+
+<figure>
+<img src="images/q8_blastpdb_plot.png" alt="blast.pdb() summary plot">
+<figcaption>Summary plot from <code>blast.pdb()</code> showing E-value, bitscore, identity, and alignment length across hits.</figcaption>
+</figure>
+
+<p>A second BLAST search against the PDB was performed using the novel basking shark RBP4 sequence as the query via <code>blast.pdb()</code>. The top 3 unique hits from different species are shown below, all solved by X-ray crystallography.</p>
+
+<table>
+<tr><th>PDB ID</th><th>E-value</th><th>Identity</th><th>Method</th><th>Resolution</th><th>Source</th></tr>
+<tr><td>1BRP_A</td><td>1.79e-67</td><td>58.084%</td><td>X-ray</td><td>2.50 Å</td><td><em>Homo sapiens</em></td></tr>
+<tr><td>1HBQ_A</td><td>1.28e-66</td><td>58.125%</td><td>X-ray</td><td>1.70 Å</td><td><em>Bos taurus</em></td></tr>
+<tr><td>1IIU_A</td><td>1.45e-66</td><td>58.125%</td><td>X-ray</td><td>2.50 Å</td><td><em>Gallus gallus</em></td></tr>
+</table>
+
+<h2><span class="qtag">[Q9]</span> AlphaFold Structural Model</h2>
+
+<p>The novel basking shark RBP4 sequence was submitted to the ColabFold AlphaFold2 notebook with default parameters. The rank 1 PDB model was visualized in Mol*, shown below as a cartoon colored by pLDDT quality score (blue = high confidence, red = low confidence), with conserved residues from the AlphaFold alignment highlighted as spacefill. The predicted structure adopts a beta-barrel fold consistent with the lipocalin family.</p>
+
+<figure>
+<img src="images/q9_alphafold.png" alt="AlphaFold structural model of the basking shark RBP4 homolog">
+<figcaption>AlphaFold2-predicted structure of the novel basking shark RBP4 homolog, cartoon colored by pLDDT, conserved residues shown as spacefill.</figcaption>
+</figure>
+
+<h2><span class="qtag">[Q10]</span> Binding Sites and Druggability</h2>
+
+<h3>(i) Predicted Small Molecule Binding Sites (CASTpFold)</h3>
+
+<p><strong>Largest predicted pocket (Pocket 1):</strong></p>
+<div class="stats-block">
+Area: 518.917 Ų<br>
+Volume: 232.421 ų
+</div>
+
+<figure>
+<img src="images/q10_castp_pocket.png" alt="CASTpFold predicted binding pocket">
+<figcaption>Largest predicted binding pocket (negative volume) from CASTpFold, shown in red.</figcaption>
+</figure>
+
+<h3>(ii) ChEMBL Target Search</h3>
+
+<p>A Target search of ChEMBL using the novel sequence identified CHEMBL3100 (Retinol-binding protein 4) as the closest match with 58.1% identity and an E-value of 2.4e-66. This target has 1275 associated assays including binding (B) and functional (F) assay types, with substantial ligand efficiency data available as shown by the Binding Efficiency Index (BEI) vs Surface Efficiency Index (SEI) plot.</p>
+
+<figure>
+<img src="images/q10_chembl_table.png" alt="ChEMBL target search results">
+<figcaption>ChEMBL target search results for the novel RBP4 sequence.</figcaption>
+</figure>
+
+<figure>
+<img src="images/q10_chembl_ligand_plot.png" alt="Ligand efficiency plot for CHEMBL3100">
+<figcaption>Binding Efficiency Index (BEI) vs Surface Efficiency Index (SEI) for ligands tested against CHEMBL3100 (human RBP4).</figcaption>
+</figure>
+
+<h3>(iii) Druggability Discussion</h3>
+
+<p>The basking shark RBP4 homolog shows moderate druggability. CASTpFold identified a well-defined binding pocket (volume 232 ų) consistent with the retinol-binding cavity conserved across lipocalin family members. ChEMBL records 1275 assays for human RBP4, including IC50 and binding data, suggesting inhibitors of the human ortholog could serve as starting points. The binding site residues are conserved across species in the Q5 alignment. Therapeutically, RBP4 inhibition has been explored for type 2 diabetes and metabolic syndrome, making this novel shark homolog a relevant comparative model.</p>
+
+<hr>
+<p style="color:#999; font-size:0.85em;">BIMM 143, Spring 2026, UC San Diego</p>
+
+</body>
+</html>
